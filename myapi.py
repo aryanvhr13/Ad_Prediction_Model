@@ -4,7 +4,6 @@ import joblib
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
-scaler = MinMaxScaler()
 app = FastAPI()
 
 class model(BaseModel):
@@ -18,5 +17,6 @@ with open('mymodel.joblib','rb') as file:
 @app.post('/')
 async def fuction(item:model):
     df = pd.DataFrame([item.dict()])
+    print(df)
     pred = mymodel.predict(df)
     return {"prediction":pred.tolist()}
